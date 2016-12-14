@@ -17,14 +17,28 @@
                           Blank Page
                           <small>Subheading</small>
                         </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <a href="index.html">Dashboard</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-file"></i> Blank Page
-                            </li>
-                        </ol>
+
+                      <?php
+                          if(isset($_GET['source'])){
+                            $source = $_GET['source'];
+                          }else{
+                            $source = "";
+                          }
+
+                          switch ($source) {
+                            case 'add_ticket':
+                              include "include/add_ticket.php";
+                              break;
+                              case 'edit_ticket':
+                                include "include/edit_ticket.php";
+                                break;
+
+                            default:
+                              include "include/view_all_tickets.php";
+                              break;
+                          }
+                       ?>
+
                     </div>
                 </div>
                 <!-- /.row -->

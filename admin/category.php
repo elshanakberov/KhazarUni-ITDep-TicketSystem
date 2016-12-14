@@ -13,15 +13,16 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Blank Page
-                            <small>Subheading</small>
-                        </h1>
+                        <h1  class="" class="page-header ">
+                          <i class="fa fa-fw fa-wrench"></i>
+                            Category
+                            <small>Panel</small>
+                        </h1><br>
                     </div>
 
                 </div>
                 <!-- /.row -->
-                <div class="col-xs-6">
+                <div class="col-xs-9">
                  <?php insert_category(); ?>
                  <?php delete_category(); ?>
                  <?php
@@ -30,27 +31,28 @@
                           edit_category();
                       }else{
                       ?>
-                      <form  action="" method="post">
+                      <div class="col-xs-6">
+                        <form  action="" method="post">
+                                <div class="input-group">
 
-                              <div class="form-group">
-                                  <label for="category_title">Add Category</label>
-                                  <input name="category_title" type="text"  class="form-control" >
-                              </div>
+                                    <input name="category_title" type="text"  class="form-control" >
+                                    <span class="input-group-btn">
+                                            <button  name="submit" class="btn btn-primary  " type="submit">Add Category</button>
+                                    </span>
 
-                              <div class="form-group">
-                                  <input name="submit" class="btn btn-primary" type="submit"  value="Submit">
-                              </div>
+                                </div>
+                        </form><br>
+                      </div>
 
-                      </form>
                       <?php } ?>
 
 
              </div>
-              <div class="col-xs-6">
-                 <table class="table table-bordered table-hover">
+              <div class="col-xs-12 table-responsive">
+                 <table class="table table-condensed table-hover table-striped">
                    <thead>
                      <tr>
-                       <td>İd</td>
+                       <td>ID</td>
                        <td>Category title</td>
                      </tr>
                    </thead>

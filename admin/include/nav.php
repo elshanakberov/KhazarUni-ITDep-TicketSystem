@@ -1,5 +1,6 @@
 
 
+
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -122,38 +123,34 @@
                 <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
             </li>
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-table"></i>   Tickets <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo1" class="collapse">
                     <li>
-                        <a href="#">View All Posts</a>
+                        <a href="tickets.php?source=view_all_tickets">View All Tickets</a>
                     </li>
                     <li>
-                        <a href="#">Add Post</a>
+                        <a href="tickets.php?source=add_ticket">Add Ticket</a>
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-            </li>
+
             <li>
                 <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
             </li>
-            <!-- <li>
-                <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-            </li> -->
+
             <li>
                 <a href="category.php"><i class="fa fa-fw fa-wrench"></i> Category</a>
             </li>
 
 
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="glyphicon glyphicon-user"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo3" class="collapse">
                     <li>
-                        <a href="#">View All Users</a>
+                        <a href="view_all_users.php">View All Users</a>
                     </li>
                     <li>
-                        <a href="#">Add User</a>
+                        <a href="add_user.php">Add User</a>
                     </li>
                 </ul>
             </li>

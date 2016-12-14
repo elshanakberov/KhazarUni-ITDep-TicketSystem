@@ -8,26 +8,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">Project name</a>
+          <a class="navbar-brand" href="index.php">Support Center</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="index.php">Home</a></li>
             <li><a href="admin">Admin</a></li>
             <li><a href='login.php'>Login</a></li>
-
-
-
-
-
-
-
-
-
-
-
-
           </ul>
+
         </div><!--/.nav-collapse -->
       </div>
     </nav>
