@@ -120,7 +120,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
             <li>
-                <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
             </li>
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-table"></i>   Tickets <i class="fa fa-fw fa-caret-down"></i></a>
@@ -135,7 +135,7 @@
             </li>
 
             <li>
-                <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                <a href="department.php"><i class="fa fa-fw fa-edit"></i>Department</a>
             </li>
 
             <li>
@@ -147,10 +147,10 @@
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="glyphicon glyphicon-user"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo3" class="collapse">
                     <li>
-                        <a href="view_all_users.php">View All Users</a>
+                        <a href="users.php?source=view_all_users">View All Users</a>
                     </li>
                     <li>
-                        <a href="add_user.php">Add User</a>
+                        <a href="users.php?source=add_user">Add User</a>
                     </li>
                 </ul>
             </li>

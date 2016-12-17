@@ -71,7 +71,7 @@
     function delete_category(){
       global $con;
         if(isset($_GET['delete'])){
-          $delete_category_id = $_GET['delete'];
+          $delete_category_id = clean($_GET['delete']);
 
           $stmt = "DELETE FROM category WHERE category_id = ? ";
           $delete_query = mysqli_prepare($con,$stmt);
@@ -88,7 +88,7 @@
 
       if(isset($_GET['edit'])){
 
-          $edit_category_id = $_GET['edit'];
+          $edit_category_id = clean($_GET['edit']);
 
           $stmt = "SELECT * FROM category WHERE category_id = ? ";
           $query = mysqli_prepare($con,$stmt);
@@ -141,39 +141,72 @@
 
 /********************** ADMIN Tickets ********************/
 
+
   function display_ticket(){
     global $con;
 
-    $query = "SELECT * FROM request";
+    $query = "SELECT * FROM request ";
     $stmt = mysqli_prepare($con,$query);
+
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt,$ticket_id,$ticket_category_id,$ticket_department,$ticket_title,$ticket_priority,$date,$ticket_content,$ticket_status);
+    mysqli_stmt_bind_result($stmt,$request_id,$request_category_id,$request_department,$request_title,$request_priority,$request_date,$request_content,$request_status );
 
-      while(mysqli_stmt_fetch($stmt)){
-        echo "<tr>";
-           echo "<td>{$ticket_id}</td>";
-           echo "<td>{$ticket_category_id}</td>";
-           echo "<td>{$ticket_department}</td>";
-           echo "<td>{$ticket_title}</td>";
+      while(mysqli_stmt_fetch($stmt)):
+              echo "<td>{$request_id}</td>";
+              echo "<td>{$request_category_id}</td>";
+              echo "<td>{$request_department}</td>";
+              echo "<td>{$request_title}</td>";
+              echo "<td>{$request_date}</td>";
+              echo "<td>{$request_priority}</td>";
+              echo "<td>{$request_status}</td>";
+              echo  mb_substr("<td>{$request_content}</td>",0,30);
+              echo "<td>{$request_date}</td>";
+              echo "<td><a class='btn btn-warning' href='tickets.php?source=edit_ticket&edit={$request_id}'>Edit</a></td>";
+              echo "<td><a class='btn btn-danger' href='tickets.php?delete={$request_id}'>Delete</a></td>";
+            echo "</tr>";
+      endwhile;
 
-
-echo "<td>{$date}</td>";
-           echo "<td>{$ticket_priority}</td>";
-
-           echo "<td>{$ticket_status}</td>";
-           echo  mb_substr("<td>{$ticket_content}</td>",0,30);
-           echo "<td>{$date}</td>";
-           echo "<td><a class='btn btn-warning' href='tickets.php?source=edit_ticket&edit={$ticket_id}'>Edit</a></td>";
-           echo "<td><a class='btn btn-danger' href='tickets.php?delete={$ticket_id}'>Delete</a></td>";
-         echo "</tr>";
-      }
+    // $query = "SELECT * FROM request ";
+    // $stmt = mysqli_query($con,$query);
+    //
+    //   while($row = mysqli_fetch_assoc($stmt)):
+    //         $ticket_id = $row['request_id'];
+    //         $ticket_category_id = $row['request_category_id'];
+    //         $ticket_department= $row['request_department'];
+    //         $ticket_department= $row['request_department'];
+    //         $ticket_title = $row['request_title'];
+    //         $ticket_date = $row['request_date'];
+    //         $ticket_priority = $row['request_priority'];
+    //         $ticket_content = $row['request_content'];
+    //         $ticket_status = $row['request_status'];
+    //
+    //          echo "<td>{$ticket_id}</td>";
+    //          $query2 = "SELECT * FROM category WHERE category_id = $ticket_category_id ";
+    //          $stmt2 = mysqli_query($con,$query2);
+    //            while($row=mysqli_fetch_array($stmt2)):
+    //
+    //                  $category_id = $row['category_id'];
+    //                  $category_title = $row['category_title'];
+    //                echo "<td>{$category_title}</td>";
+    //            endwhile;
+    //        echo "<td>{$ticket_department}</td>";
+    //        echo "<td>{$ticket_title}</td>";
+    //        echo "<td>{$ticket_date}</td>";
+    //        echo "<td>{$ticket_priority}</td>";
+    //        echo "<td>{$ticket_status}</td>";
+    //        echo  mb_substr("<td>{$ticket_content}</td>",0,30);
+    //        echo "<td>{$ticket_date}</td>";
+    //        echo "<td><a class='btn btn-warning' href='tickets.php?source=edit_ticket&edit={$ticket_id}'>Edit</a></td>";
+    //        echo "<td><a class='btn btn-danger' href='tickets.php?delete={$ticket_id}'>Delete</a></td>";
+    //      echo "</tr>";
+    //   endwhile;
   }
 
   function delete_ticket(){
     global $con;
       if(isset($_GET['delete'])){
 
-          $delete_ticket_id = $_GET['delete'];
+          $delete_ticket_id = clean($_GET['delete']);
           $query = "DELETE FROM request WHERE request_id = ? ";
           $stmt  = mysqli_prepare($con,$query);
 
@@ -188,13 +221,13 @@ echo "<td>{$date}</td>";
       global $con;
 
     if(isset($_POST['submit'])){
-        $ticket_category_id = $_POST['ticket_category_id'];
-        $ticket_department = $_POST['ticket_department'];
-        $ticket_title = $_POST['ticket_title'];
-        $ticket_priority = $_POST['ticket_priority'];
+        $ticket_category_id = clean($_POST['ticket_category_id']);
+        $ticket_department = clean($_POST['ticket_department']);
+        $ticket_title = clean($_POST['ticket_title']);
+        $ticket_priority = clean($_POST['ticket_priority']);
         $ticket_date = date('y-m-d');
-        $ticket_status = $_POST['ticket_status'];
-        $ticket_content = $_POST['ticket_content'];
+        $ticket_status = clean($_POST['ticket_status']);
+        $ticket_content = clean($_POST['ticket_content']);
 
         $query = "INSERT INTO request(request_category_id,request_department,request_title,request_priority,request_date,request_content,request_status) ";
         $query .= "VALUES(?,?,?,?,?,?,?) ";
@@ -211,7 +244,7 @@ echo "<td>{$date}</td>";
     global $con;
 
     if(isset($_GET['edit'])){
-      $edit_ticket_id = $_GET['edit'];
+      $edit_ticket_id = clean($_GET['edit']);
 
 
       $query = "SELECT * FROM request WHERE request_id = ? ";
@@ -259,12 +292,12 @@ echo "<td>{$date}</td>";
 
     if(isset($_POST['submit'])){
 
-      $ticket_category_id = $_POST['ticket_category_id'];
-      $ticket_department = $_POST['ticket_department'];
-      $ticket_title = $_POST['ticket_title'];
-      $ticket_priority = $_POST['ticket_priority'];
-      $ticket_status = $_POST['ticket_status'];
-      $ticket_content = $_POST['ticket_content'];
+      $ticket_category_id = clean($_POST['ticket_category_id']);
+      $ticket_department = clean($_POST['ticket_department']);
+      $ticket_title = clean( $_POST['ticket_title']);
+      $ticket_priority = clean($_POST['ticket_priority']);
+      $ticket_status = clean($_POST['ticket_status']);
+      $ticket_content = clean($_POST['ticket_content']);
 
       $query = "UPDATE request SET ";
       $query .= "request_category_id = ?, ";
@@ -284,5 +317,240 @@ echo "<td>{$date}</td>";
 
     }
 
+  }
+
+  function category(){
+    global $con;
+
+    $query = "SELECT * FROM category";
+    $stmt  = mysqli_prepare($con,$query);
+
+    mysqli_stmt_bind_result($stmt,$category_id,$category_title);
+    mysqli_stmt_execute($stmt);
+
+      while(mysqli_stmt_fetch($stmt)){
+        echo "
+                              <option value='$category_id'>$category_title</option>
+                    ";
+      }
+  }
+
+/********************** ADMIN Department ********************/
+
+
+function department(){
+  global $con;
+
+  $query = "SELECT * FROM department";
+  $stmt  = mysqli_prepare($con,$query);
+
+  mysqli_stmt_bind_result($stmt,$department_id,$department_name);
+  mysqli_stmt_execute($stmt);
+
+    while(mysqli_stmt_fetch($stmt)){
+      echo "
+                            <option value='$department_id'>$department_name</option>
+                  ";
+    }
+}
+
+  function display_department(){
+    global $con;
+
+      $query = "SELECT department_id,department_name FROM department";
+      $select_query = mysqli_prepare($con,$query);
+
+      mysqli_stmt_execute($select_query);
+      mysqli_stmt_bind_result($select_query,$department_id,$department_name);
+
+        while(mysqli_stmt_fetch($select_query)){
+
+             echo "<tr>";
+                echo "<td>{$department_id}</td>";
+                echo "<td>{$department_name}</td>";
+                echo "<td><a class='btn btn-warning' href='department.php?edit={$department_id}'>Edit</a></td>";
+                echo "<td><a class='btn btn-danger' href='department.php?delete={$department_id}'>Delete</a></td>";
+              echo "</tr>";
+          }
+    }
+
+    function insert_department(){
+      global $con;
+      if(isset($_POST['submit'])){
+        $department_name = clean($_POST['department_name']);
+          if(empty($department_name) || $department_name === " "){
+            echo "<h1></h1>";
+          }else{
+
+            $stmt = "INSERT INTO department(department_name) VALUES (?) ";
+            $insert_query = mysqli_prepare($con,$stmt);
+
+            mysqli_stmt_bind_param($insert_query, 's' , $department_name);
+            mysqli_stmt_execute($insert_query);
+
+        }
+      }
+    }
+
+    function delete_department(){
+      global $con;
+        if(isset($_GET['delete'])){
+          $delete_department_id = clean($_GET['delete']);
+
+          $stmt = "DELETE FROM department WHERE department_id = ? ";
+          $delete_query = mysqli_prepare($con,$stmt);
+
+          mysqli_stmt_bind_param($delete_query, 'i' , $delete_department_id);
+          mysqli_stmt_execute($delete_query);
+
+          redirect("department.php");
+      }
+    }
+
+    function edit_department(){
+      global $con;
+
+      if(isset($_GET['edit'])){
+
+          $edit_department_id = clean($_GET['edit']);
+
+          $stmt = "SELECT * FROM department WHERE department_id = ? ";
+          $query = mysqli_prepare($con,$stmt);
+
+          mysqli_stmt_bind_param($query, 'i' ,$edit_department_id);
+          mysqli_stmt_execute($query);
+          mysqli_stmt_bind_result($query,$department_id,$department_name);
+
+            while(mysqli_stmt_fetch($query)):
+                ?>
+                <div class="col-xs-6">
+                  <form  action="" method="post">
+
+                          <div class="input-group">
+
+                              <input name="department_name" type="text"  class="form-control" value="<?php echo $department_name ?>">
+                              <span class="input-group-btn">
+                                      <button  name="edit_department" class="btn btn-primary  " type="submit">Edit Department</button>
+                              </span>
+                          </div>
+                  </form><br>
+                </div>
+                <?php
+            endwhile;
+      }
+
+        if(isset($_POST['edit_department'])){
+
+            $department_name = clean($_POST['department_name']);
+
+            if (empty($department_name ) || $department_name  === " ") {
+              echo "<p class='alert alert-danger text-center'>Xeta! Departamenti Yenilemek Uchun Input girin</p>";
+            }else{
+            $query = "UPDATE department SET department_name = ? WHERE department_id = ?";
+            $stmt = mysqli_prepare($con,$query);
+
+            mysqli_stmt_bind_param($stmt, 'si' , $department_name,$edit_department_id);
+            mysqli_stmt_execute($stmt);
+
+            redirect("department.php");
+
+            }
+        }
+    }
+
+/********************** ADMIN Users ********************/
+
+  function display_user(){
+    global $con;
+
+    $query = "SELECT user_id,user_name,user_lastname,user_firstname,user_email,user_role FROM users ";
+    $stmt = mysqli_prepare($con,$query);
+
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt,$user_id,$username,$user_lastname,$user_firstname,$user_email,$user_role);
+
+      while(mysqli_stmt_fetch($stmt)):
+        echo "<tr>";
+        echo "<td>$user_id</td>";
+        echo "<td>$username</td>";
+        echo "<td>$user_firstname</td>";
+        echo "<td>$user_lastname</td>";
+        echo "<td>$user_email</td>";
+        echo "<td>$user_role</td>";
+        echo "<td><a class='btn btn-info' href='users.php?user={$user_id}'>User</a></td>";
+        echo "<td><a class='btn btn-success' href='users.php?admin={$user_id}'>Admin</a></td>";
+        echo "<td><a class='btn btn-danger' href='users.php?delete={$user_id}'>Delete</a></td>";
+        echo "</tr>";
+      endwhile;
+  }
+
+  function add_user(){
+    global $con;
+
+    if(isset($_POST['submit'])){
+      $username       = clean($_POST['username']);
+      $user_role      = clean($_POST['user_role']);
+      $user_firstname = clean($_POST['user_firstname']);
+      $user_lastname  = clean($_POST['user_lastname']);
+      $user_email     = clean($_POST['user_email']);
+      $user_password  = clean($_POST['user_password']);
+
+      $query  = "INSERT INTO users(user_name,user_role,user_lastname,user_firstname,user_email,user_password) ";
+      $query .= "VALUES(?,?,?,?,?,?) ";
+      $stmt = mysqli_prepare($con,$query);
+
+      mysqli_stmt_bind_param($stmt,"ssssss",$username,$user_role,$user_firstname,$user_lastname,$user_email,$user_password);
+      mysqli_stmt_execute($stmt);
+
+      redirect("users.php");
+      mysqli_stmt_close($stmt);
+    }
+  }
+
+  function user_user(){
+    global $con;
+    if(isset($_GET['user'])){
+      $user_user = $_GET['user'];
+
+      $query = "UPDATE users SET user_role = 'User' WHERE user_id = ?";
+      $stmt = mysqli_prepare($con,$query);
+      mysqli_stmt_bind_param($stmt,"i",$user_user);
+      mysqli_stmt_execute($stmt);
+
+      redirect("users.php");
+      mysqli_stmt_close($stmt);
+    }
+  }
+
+  function user_admin(){
+    global $con;
+
+    if(isset($_GET['admin'])){
+      $user_admin = $_GET['admin'];
+
+      $query = "UPDATE users SET user_role = 'Admin' WHERE user_id = ? ";
+      $stmt = mysqli_prepare($con,$query);
+
+      mysqli_stmt_bind_param($stmt,"i",$user_admin);
+      mysqli_stmt_execute($stmt);
+      redirect("users.php");
+      mysqli_stmt_close($stmt);
+    }
+  }
+
+  function delete_user(){
+    global $con;
+
+    if(isset($_GET['delete'])){
+      $delete_user_id = $_GET['delete'];
+
+      $query = "DELETE FROM users WHERE user_id = ?";
+      $stmt = mysqli_prepare($con,$query);
+
+          mysqli_stmt_bind_param($stmt,"i",$delete_user_id);
+          mysqli_stmt_execute($stmt);
+          redirect("users.php");
+          mysqli_stmt_close($stmt);
+    }
   }
    ?>

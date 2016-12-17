@@ -2,15 +2,21 @@
 <form action="" method="post" enctype="multipart/form-data">
 
 
-                      <div class="form-group">
-                          <label for="title"> Category</label>
-                          <input type="text" class="form-control" name="ticket_category_id">
-                      </div>
 
-                      <div class="form-group">
-                          <label for="title">Department</label>
-                          <input type="text" class="form-control" name="ticket_department">
-                      </div>
+                        <div class="form-group">
+                          <label for="title">Select Category</label><br>
+                               <select class="" name="ticket_category_id">
+
+                                       <?php category(); ?>
+                               </select>
+                         </div>
+
+                         <div class="form-group">
+                           <label for="title">Select Department</label><br>
+                                <select class="" name="ticket_department">
+                                        <?php department(); ?>
+                                </select>
+                          </div>
 
 
                       <div class="form-group">

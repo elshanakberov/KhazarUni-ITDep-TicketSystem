@@ -14,8 +14,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                          <i class="fa fa-fw fa-table"></i>
-                          Tickets
+                          <i class="glyphicon glyphicon-user"></i>
+                          Users
                           <small>Panel</small>
                         </h1>
 
@@ -27,15 +27,12 @@
                           }
 
                           switch ($source) {
-                            case 'add_ticket':
-                              include "include/add_ticket.php";
+                            case 'add_user':
+                              include "include/add_user.php";
                               break;
-                              case 'edit_ticket':
-                                include "include/edit_ticket.php";
-                                break;
 
                             default:
-                              include "include/view_all_tickets.php";
+                              include "include/view_all_users.php";
                               break;
                           }
                        ?>
