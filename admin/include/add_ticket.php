@@ -6,7 +6,6 @@
                         <div class="form-group">
                           <label for="title">Select Category</label><br>
                                <select class="" name="ticket_category_id">
-
                                        <?php category(); ?>
                                </select>
                          </div>

@@ -1,5 +1,6 @@
 <!-- HELPER FUNCTIONS -->
 <?php session_start(); ?>
+
 <?php
 
   function escape($string){
@@ -139,67 +140,54 @@
         }
     }
 
+
+
 /********************** ADMIN Tickets ********************/
 
 
   function display_ticket(){
     global $con;
-
     $query = "SELECT * FROM request ";
-    $stmt = mysqli_prepare($con,$query);
+    $stmt = mysqli_query($con,$query);
 
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt,$request_id,$request_category_id,$request_department,$request_title,$request_priority,$request_date,$request_content,$request_status );
+      while($row = mysqli_fetch_assoc($stmt)):
+            $ticket_id = $row['request_id'];
+            $ticket_category_id = $row['request_category_id'];
+            $ticket_department = $row['request_department'];
+            $ticket_title = $row['request_title'];
+            $ticket_date = $row['request_date'];
+            $ticket_priority = $row['request_priority'];
+            $ticket_content = $row['request_content'];
+            $ticket_status = $row['request_status'];
 
-      while(mysqli_stmt_fetch($stmt)):
-              echo "<td>{$request_id}</td>";
-              echo "<td>{$request_category_id}</td>";
-              echo "<td>{$request_department}</td>";
-              echo "<td>{$request_title}</td>";
-              echo "<td>{$request_date}</td>";
-              echo "<td>{$request_priority}</td>";
-              echo "<td>{$request_status}</td>";
-              echo  mb_substr("<td>{$request_content}</td>",0,30);
-              echo "<td>{$request_date}</td>";
-              echo "<td><a class='btn btn-warning' href='tickets.php?source=edit_ticket&edit={$request_id}'>Edit</a></td>";
-              echo "<td><a class='btn btn-danger' href='tickets.php?delete={$request_id}'>Delete</a></td>";
-            echo "</tr>";
+             echo "<tr>";
+              echo "<td>{$ticket_id}</td>";
+                 $query2 = "SELECT * FROM category WHERE category_id = {$ticket_category_id }";
+                 $stmt2 = mysqli_query($con,$query2);
+                   while($row=mysqli_fetch_array($stmt2)):
+                         $category_id = $row['category_id'];
+                         $category_title = $row['category_title'];
+                         echo "<td>{$category_title}</td>";
+                   endwhile;
+                   $query3 = "SELECT * FROM department WHERE department_id = {$ticket_department} ";
+                   $stmt3 = mysqli_query($con,$query3);
+
+                   while($row = mysqli_fetch_array($stmt3)):
+                     $department_id = $row['department_id'];
+                     $department_title = $row['department_name'];
+                     echo "<td>{$department_title}</td>";
+                   endwhile;
+
+               echo "<td>{$ticket_title}</td>";
+               echo "<td>{$ticket_date}</td>";
+               echo "<td>{$ticket_priority}</td>";
+               echo "<td>{$ticket_status}</td>";
+               echo  mb_substr("<td>{$ticket_content}</td>",0,30);
+               echo "<td>{$ticket_date}</td>";
+               echo "<td><a class='btn btn-warning' href='tickets.php?source=edit_ticket&edit={$ticket_id}'>Edit</a></td>";
+               echo "<td><a class='btn btn-danger' href='tickets.php?delete={$ticket_id}'>Delete</a></td>";
+             echo "</tr>";
       endwhile;
-
-    // $query = "SELECT * FROM request ";
-    // $stmt = mysqli_query($con,$query);
-    //
-    //   while($row = mysqli_fetch_assoc($stmt)):
-    //         $ticket_id = $row['request_id'];
-    //         $ticket_category_id = $row['request_category_id'];
-    //         $ticket_department= $row['request_department'];
-    //         $ticket_department= $row['request_department'];
-    //         $ticket_title = $row['request_title'];
-    //         $ticket_date = $row['request_date'];
-    //         $ticket_priority = $row['request_priority'];
-    //         $ticket_content = $row['request_content'];
-    //         $ticket_status = $row['request_status'];
-    //
-    //          echo "<td>{$ticket_id}</td>";
-    //          $query2 = "SELECT * FROM category WHERE category_id = $ticket_category_id ";
-    //          $stmt2 = mysqli_query($con,$query2);
-    //            while($row=mysqli_fetch_array($stmt2)):
-    //
-    //                  $category_id = $row['category_id'];
-    //                  $category_title = $row['category_title'];
-    //                echo "<td>{$category_title}</td>";
-    //            endwhile;
-    //        echo "<td>{$ticket_department}</td>";
-    //        echo "<td>{$ticket_title}</td>";
-    //        echo "<td>{$ticket_date}</td>";
-    //        echo "<td>{$ticket_priority}</td>";
-    //        echo "<td>{$ticket_status}</td>";
-    //        echo  mb_substr("<td>{$ticket_content}</td>",0,30);
-    //        echo "<td>{$ticket_date}</td>";
-    //        echo "<td><a class='btn btn-warning' href='tickets.php?source=edit_ticket&edit={$ticket_id}'>Edit</a></td>";
-    //        echo "<td><a class='btn btn-danger' href='tickets.php?delete={$ticket_id}'>Delete</a></td>";
-    //      echo "</tr>";
-    //   endwhile;
   }
 
   function delete_ticket(){
@@ -241,7 +229,7 @@
   }
 
   function update_ticket(){
-    global $con;
+    global $con,$ticket_id,$ticket_category_id,$ticket_department,$ticket_title,$ticket_priority,$ticket_date,$ticket_content,$ticket_status;
 
     if(isset($_GET['edit'])){
       $edit_ticket_id = clean($_GET['edit']);
@@ -255,38 +243,7 @@
       mysqli_stmt_bind_result($stmt,$ticket_id,$ticket_category_id,$ticket_department,$ticket_title,$ticket_priority,$ticket_date,$ticket_content,$ticket_status);
 
           while(mysqli_stmt_fetch($stmt)):
-              ?>
-<form action="" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-      <label for="title">Category</label>
-      <input type="text" class="form-control" name="ticket_category_id" value="<?php echo $ticket_category_id?>">
-    </div>
-    <div class="form-group">
-      <label for="title">Department</label>
-      <input type="text" class="form-control" name="ticket_department" value="<?php echo $ticket_department?>">
-    </div>
-    <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" class="form-control" name="ticket_title" value="<?php echo $ticket_title?>">
-    </div>
-    <div class="form-group">
-        <label for="title">Priority</label>
-        <input type="text" class="form-control" name="ticket_priority" value="<?php echo $ticket_priority?>">
-    </div>
-    <div class="form-group">
-      <label for="title">Status</label>
-      <input type="text" class="form-control" name="ticket_status" value="<?php echo $ticket_status?>">
-    </div>
-    <div class="form-group">
-      <label for="title">Description</label>
-      <textarea  class="form-control" id="" cols="30" rows="10"  name="ticket_content"><?php echo $ticket_content?>
-      </textarea>
-    </div>
-    <div class="form-group">
-      <input type="submit" class="btn-btn-primary" name="submit" value="Submit">
-    </div>
-</form>
-              <?php
+
           endwhile;
     }
 
@@ -320,7 +277,7 @@
   }
 
   function category(){
-    global $con;
+    global $con,$category_id,$category_title;
 
     $query = "SELECT * FROM category";
     $stmt  = mysqli_prepare($con,$query);
@@ -552,5 +509,46 @@ function department(){
           redirect("users.php");
           mysqli_stmt_close($stmt);
     }
+  }
+
+  function count_ticket(){
+    global $con;
+
+    $query = "SELECT * FROM request ";
+    $stmt = mysqli_query($con,$query);
+
+  $count_ticket =  mysqli_num_rows($stmt);
+
+      echo $count_ticket;
+  }
+  function count_departments(){
+    global $con;
+
+    $query = "SELECT * FROM department ";
+    $stmt = mysqli_query($con,$query);
+
+  $count_departments =  mysqli_num_rows($stmt);
+
+      echo $count_departments;
+  }
+  function count_users(){
+    global $con;
+
+    $query = "SELECT * FROM users ";
+    $stmt = mysqli_query($con,$query);
+
+  $count_users =  mysqli_num_rows($stmt);
+
+      echo $count_users;
+  }
+  function count_categories(){
+    global $con;
+
+    $query = "SELECT * FROM category ";
+    $stmt = mysqli_query($con,$query);
+
+  $count_category =  mysqli_num_rows($stmt);
+
+      echo $count_category;
   }
    ?>
