@@ -161,6 +161,7 @@
             $ticket_status = $row['request_status'];
 
              echo "<tr>";
+             echo "<td><input type='checkbox' class='checkBoxes' name='checkBoxArray[]' value='$ticket_id'></td>";
               echo "<td>{$ticket_id}</td>";
                  $query2 = "SELECT * FROM category WHERE category_id = {$ticket_category_id }";
                  $stmt2 = mysqli_query($con,$query2);
@@ -182,7 +183,8 @@
                echo "<td>{$ticket_date}</td>";
                echo "<td>{$ticket_priority}</td>";
                echo "<td>{$ticket_status}</td>";
-               echo  mb_substr("<td>{$ticket_content}</td>",0,30);
+              //  echo  mb_substr("<td>{$ticket_content}</td>",0,30);
+              echo "<td><a class='btn btn-default' href='../request.php?r_id={$ticket_id}'>Extend</a></td>";
                echo "<td>{$ticket_date}</td>";
                echo "<td><a class='btn btn-warning' href='tickets.php?source=edit_ticket&edit={$ticket_id}'>Edit</a></td>";
                echo "<td><a class='btn btn-danger' href='tickets.php?delete={$ticket_id}'>Delete</a></td>";
@@ -223,6 +225,10 @@
         $stmt = mysqli_prepare($con,$query);
         mysqli_stmt_bind_param($stmt,"issssss",$ticket_category_id,$ticket_department,$ticket_title,$ticket_priority,$ticket_date,$ticket_content,$ticket_status);
         mysqli_stmt_execute($stmt);
+
+        redirect("tickets.php");
+
+        mysqli_stmt_close($stmt);
 
     }
 

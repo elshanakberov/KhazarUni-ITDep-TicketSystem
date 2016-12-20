@@ -21,12 +21,22 @@
         <input type="text" class="form-control" name="ticket_title" value="<?php echo $ticket_title?>">
     </div>
     <div class="form-group">
-        <label for="title">Priority</label>
-        <input type="text" class="form-control" name="ticket_priority" value="<?php echo $ticket_priority?>">
+        <label for="title">Priority</label><br>
+        <select class="" name="ticket_priority">
+          <option value="Minor">Select Priority</option>
+          <option value="Major">Major</option>
+          <option value="Minor">Minor</option>
+          <option value="Emergency">Emergency</option>
+          <option value="Critical">Critical</option>
+        </select>
     </div>
     <div class="form-group">
-      <label for="title">Status</label>
-      <input type="text" class="form-control" name="ticket_status" value="<?php echo $ticket_status?>">
+      <label for="title">Status</label><br>
+      <select class="" name="ticket_status">
+        <option value="Draft">Select Status</option>
+        <option value="Active">Active</option>
+        <option value="Draft">Draft</option>
+      </select>
     </div>
     <div class="form-group">
       <label for="title">Description</label>
