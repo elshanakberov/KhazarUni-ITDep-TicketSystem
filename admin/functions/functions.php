@@ -161,7 +161,7 @@
             $ticket_status = $row['request_status'];
 
              echo "<tr>";
-             echo "<td><input type='checkbox' class='checkBoxes' name='checkBoxArray[]' value='$ticket_id'></td>";
+              echo "<td><input type='checkbox' class='checkBox' name='checkBoxArray[]' value='$ticket_id'></td>";
               echo "<td>{$ticket_id}</td>";
                  $query2 = "SELECT * FROM category WHERE category_id = {$ticket_category_id }";
                  $stmt2 = mysqli_query($con,$query2);
@@ -556,5 +556,57 @@ function department(){
   $count_category =  mysqli_num_rows($stmt);
 
       echo $count_category;
+  }
+
+  function bulk_option(){
+    global $con;
+        if(isset($_POST['checkBoxArray'])){
+
+          $checkBoxArray = $_POST['checkBoxArray'];
+
+          foreach($checkBoxArray as $checkBoxId){
+
+                  $bulk_option = $_POST['bulkOptions'];
+
+                  switch($bulk_option) {
+                    case 'Delete':
+                      $query = "DELETE FROM request WHERE request_id = ? ";
+                      $stmt = mysqli_prepare($con,$query);
+
+                      mysqli_stmt_bind_param($stmt,"i",$checkBoxId);
+                      mysqli_stmt_execute($stmt);
+                        redirect("tickets.php");
+                      mysqli_stmt_close($stmt);
+                      break;
+
+                      case 'Active':
+                        $query = "UPDATE request SET request_status = 'Active' WHERE request_id = ? ";
+                        $stmt = mysqli_prepare($con,$query);
+
+                        mysqli_stmt_bind_param($stmt,"i",$checkBoxId);
+                        mysqli_stmt_execute($stmt);
+                          redirect("tickets.php");
+
+                          mysqli_stmt_close($stmt);
+                      break;
+
+                      case 'Draft':
+                      $query = "UPDATE request SET request_status = 'Draft' WHERE request_id = ? ";
+                      $stmt = mysqli_prepare($con,$query);
+
+                      mysqli_stmt_bind_param($stmt,"i",$checkBoxId);
+                      mysqli_stmt_execute($stmt);
+                        redirect("tickets.php");
+
+                        mysqli_stmt_close($stmt);
+
+
+                    default:
+                      # code...
+                      break;
+                  }
+          }
+
+        }
   }
    ?>

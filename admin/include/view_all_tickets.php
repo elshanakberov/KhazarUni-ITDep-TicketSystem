@@ -1,21 +1,15 @@
 <?php
-    if(isset($_POST['checkBoxArray'])){
-      $checkBoxArray = $_POST['checkBoxArray'];
-
-      foreach($checkBoxArray as $checkBoxValue){
-            echo $checkBoxValue;
-      }
-    }
+bulk_option();
 ?>
 
 <form class="" action="" method="post">
 
   <div id="bulkOptionContainer" class="col-xs-2">
-      <select class="" name="">
+      <select class="" name="bulkOptions">
         <option value="">Select Options</option>
-        <option value="">Publish</option>
-        <option value="">Draft</option>
-        <option value="">Delete</option>
+        <option value="Active">Active</option>
+        <option value="Draft">Draft</option>
+        <option value="Delete">Delete</option>
       </select>
 
   </div>
