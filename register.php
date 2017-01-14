@@ -1,14 +1,10 @@
 <?php include("includes/header.php") ?>
-
-<?php
-
-
- ?>
-
 <?php include("includes/nav.php") ?>
 
 	<div class="row">
 		<div class="col-lg-6 col-lg-offset-3">
+
+			<?php validate_user(); ?>
 
 
 
@@ -19,6 +15,8 @@
 	</div>
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
+
+
 				<div class="panel panel-login">
 					<div class="panel-heading">
 						<div class="row">
@@ -34,7 +32,7 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<form id="register-form" method="post" role="form" >
+								<form action="register.php" id="register-form" method="post" role="form" >
 									<div class="form-group">
 										<input type="text" name="first_name" id="first_name" tabindex="1" class="form-control" placeholder="First Name" value="" required >
 									</div>

@@ -2,14 +2,6 @@
 
 <?php include("includes/header.php") ?>
 
-<?php
-
-  if(logged_in()){
-
-    redirect("admin.php");
-
-  }
- ?>
 
 
   <?php include("includes/nav.php") ?>
@@ -17,12 +9,6 @@
 
 	<div class="row">
 		<div class="col-lg-6 col-lg-offset-3">
-
-      <?php display_message(); ?>
-      <?php validate_user_login(); ?>
-      <!-- <?php login_user(); ?> -->
-
-
 		</div>
 	</div>
     	<div class="row">

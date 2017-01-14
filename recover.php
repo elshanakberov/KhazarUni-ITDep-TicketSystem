@@ -3,8 +3,7 @@
 				<div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
 					<div class="alert-placeholder">
 
-						<?php display_message(); ?>
-            <?php recover_password(); ?>
+
 
 
 					</div>
@@ -31,7 +30,7 @@
 
 											</div>
 										</div>
-										<input type="hidden" class="hide" name="token" id="token" value="<?php echo token_generator(); ?>">
+										<input type="hidden" class="hide" name="token" id="token" value="<?php ?>">
                   </form>
 								</div>
 							</div>

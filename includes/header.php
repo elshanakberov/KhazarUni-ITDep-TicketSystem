@@ -1,4 +1,6 @@
+
 <?php include("functions/init.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,5 +15,3 @@
 <body>
 
 	<div class="container">
-
-

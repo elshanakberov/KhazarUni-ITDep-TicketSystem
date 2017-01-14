@@ -1,12 +1,7 @@
 <?php
 
-$con = mysqli_connect('127.0.0.1', 'root', '', 'login');
+$con = mysqli_connect('127.0.0.1', 'root', '', 'ticketsystem');
 
-function row_count($result){
-	global $con;
-	return mysqli_num_rows($result);
-
-}
 
 function escape($string) {
 	global $con;
