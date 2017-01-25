@@ -25,16 +25,15 @@
                       <div class="form-group">
                           <label for="title">Priority</label><br>
                           <select class="" name="ticket_priority">
-                            <option value="Draft">Select Priority</option>
-                            <option value="Active">Major</option>
-                            <option value="Draft">Minor</option>
-                            <option value="Draft">Emergency</option>
-                            <option value="Draft">Critical</option>
+                            <option value="Major">Select Priority</option>
+                            <option value="Majot">Major</option>
+                            <option value="Minor">Minor</option>
+                            <option value="Emergency">Emergency</option>
+                            <option value="Critical">Critical</option>
                           </select>
                       </div>
                       <div class="form-group">
                           <label for="title">Status</label><br>
-
                           <select class="" name="ticket_status">
                             <option value="Draft">Select Status</option>
                             <option value="Active">Active</option>

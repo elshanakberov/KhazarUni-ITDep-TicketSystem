@@ -1,14 +1,15 @@
 <!-- HELPER FUNCTIONS -->
 <?php
+  ob_start();
 
   function clean($string){
 
     return htmlentities($string);
   }
 
-  function redirect ($location){
+  function redirect($location){
 
-    return header("location: {$location}")  ;
+    return header("location:{$location}");
   }
 
   function set_message($message){
@@ -125,19 +126,17 @@ return $error_message;
               foreach($errors as $error){
                 echo validation_error($error);
               }
-            }else{
+            }
+            else{
               if(register_user($user_name,$first_name,$last_name,$email,$password)){
 
-                  set_message('<div class="alert alert-danger alert-dismissible" role="alert">
-                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                     <strong>Diqqet!</strong> User Registered
-                   </div>');
+                set_message('<div align = "center" class="alert alert-success" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>  Success! </strong> Please Check Your Email in order to activate your profile</div>' );
+                redirect("index.php");
 
-
-             }else{
-               validation_error("Error");
-             }
-            }
+              }
+          }
       }
   }
 
@@ -158,5 +157,10 @@ return $error_message;
       mysqli_stmt_bind_param($stmt,"ssssss",$user_name,$first_name,$last_name,$email,$user_role,$password );
       mysqli_stmt_execute($stmt);
 
+      return true;
+
     }
+
+
+
   ?>

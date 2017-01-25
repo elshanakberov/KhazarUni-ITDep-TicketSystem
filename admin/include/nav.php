@@ -99,6 +99,7 @@
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-table"></i>   Tickets</a>
                 <ul id="demo1" class="collapse">
+              
                     <li>
                         <a href="tickets.php?source=view_all_tickets">View All Tickets</a>
                     </li>

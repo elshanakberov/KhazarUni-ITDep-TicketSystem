@@ -8,6 +8,7 @@
 
 
 		<h3 class="text-center">Khazar University IT Department</h3>
+    	<h4 class="text-center"><?php  display_message(); ?> </h4>
 
 	</div>
 

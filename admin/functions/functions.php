@@ -184,13 +184,14 @@
                echo "<td>{$ticket_priority}</td>";
                echo "<td>{$ticket_status}</td>";
               //  echo  mb_substr("<td>{$ticket_content}</td>",0,30);
-              echo "<td><a class='btn btn-default' href='../request.php?r_id={$ticket_id}'>Extend</a></td>";
+              echo "<td><a class='btn btn-default' href='../requests.php?r_id={$ticket_id}'>Extend</a></td>";
                echo "<td>{$ticket_date}</td>";
                echo "<td><a class='btn btn-warning' href='tickets.php?source=edit_ticket&edit={$ticket_id}'>Edit</a></td>";
                echo "<td><a class='btn btn-danger' href='tickets.php?delete={$ticket_id}'>Delete</a></td>";
              echo "</tr>";
       endwhile;
   }
+
 
   function delete_ticket(){
     global $con;

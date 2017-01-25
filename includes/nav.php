@@ -15,6 +15,7 @@
             <li><a href="index.php">Home</a></li>
             <li><a href="admin">Admin</a></li>
             <li><a href='login.php'>Login</a></li>
+            <li><a href='request.php'>Tickets</a></li>
           </ul>
 
         </div><!--/.nav-collapse -->

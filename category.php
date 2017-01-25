@@ -12,21 +12,29 @@
             <!-- Blog Post Content Column -->
             <div class="col-lg-8">
 
-              <?php
+                  <?php
+
+                  if(isset($_GET['category_id'])){
+                      $cat_id = $_GET['category_id'];
+                    }else{
+                      redirect("request.php");
+                    }
+
+                    $query = "SELECT * FROM request WHERE request_category_id = {$cat_id }" ;
+                    $stmt = mysqli_query($con,$query);
+                    if(mysqli_num_rows($stmt) == 0){
+                      echo "<h2>No Results</h2>";
+                    }else{
 
 
-                  $query = "SELECT * FROM request";
-                  $select_query  = mysqli_query($con,$query);
 
-                  while($row = mysqli_fetch_assoc($select_query)):
-                        $request_title = $row['request_title'];
-                        $request_content = $row['request_content'];
-                        $request_date = $row['request_date'];
+                      while($row = mysqli_fetch_assoc($stmt)):
+                            $request_title = $row['request_title'];
+                            $request_content  = $row['request_content'];
+                            $request_date = $row['request_date'];
 
-          ?>
-                  <!-- Blog Post -->
+                  ?>
 
-                  <!-- Title -->
                   <h1><?php echo $request_title; ?></h1>
 
                   <!-- Author -->
@@ -46,26 +54,14 @@
                       <?php echo $request_content; ?>
                   </p>
                     <hr>
-               <?php
-                  endwhile;
-               ?>
 
-
-                <!-- Post Content -->
-
-
-
-                <!-- Blog Comments -->
-
-                <!-- Comments Form -->
+                  <?php
+                          endwhile;
+                        }
+                    ?>
 
 
 
-                <!-- Posted Comments -->
-
-                <!-- Comment -->
-
-                <!-- Comment -->
 
 
             </div>

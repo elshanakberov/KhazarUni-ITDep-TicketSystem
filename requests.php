@@ -14,8 +14,10 @@
 
               <?php
 
+                  if(isset($_GET['r_id'])){
+                    $ticket_id = $_GET['r_id'];
 
-                  $query = "SELECT * FROM request";
+                  $query = "SELECT * FROM request WHERE request_id = {$ticket_id} ";
                   $select_query  = mysqli_query($con,$query);
 
                   while($row = mysqli_fetch_assoc($select_query)):
@@ -48,6 +50,9 @@
                     <hr>
                <?php
                   endwhile;
+                }else{
+                  redirect("index.php");
+                }
                ?>
 
 
@@ -78,31 +83,26 @@
 
                 <!-- Blog Categories Well -->
                 <div class="well">
-                    <h4>Ticket Categories</h4>
+                    <h4>Blog Categories</h4>
                     <div class="row">
-                        <div class="col-lg-6">
+                      <?php
 
-                            <?php
+                          $query = "SELECT * FROM category ";
+                          $stmt = mysqli_prepare($con,$query);
 
-                                $query = "SELECT * FROM category ";
-                                $stmt = mysqli_prepare($con,$query);
+                          mysqli_stmt_bind_result($stmt,$category_id,$category_title);
+                          mysqli_stmt_execute($stmt);
 
-                                mysqli_stmt_bind_result($stmt,$category_id,$category_title);
-                                mysqli_stmt_execute($stmt);
+                            while(mysqli_stmt_fetch($stmt)):
 
-                                  while(mysqli_stmt_fetch($stmt)):
+                              ?>
+                              <ul class="list-unstyled">
+                                  <li><a href="category.php?category_id=<?php echo $category_id ?>"><?php echo $category_title ?></a></li>
+                              </ul>
+                              <?php
+                            endwhile;
 
-                                    ?>
-                                    <ul class="list-unstyled">
-                                        <li><a href="category.php?category_id=<?php echo $category_id ?>"><?php echo $category_title ?></a></li>
-                                    </ul>
-                                    <?php
-                                  endwhile;
-
-                             ?>
-
-                        </div>
-
+                       ?>
                     </div>
                     <!-- /.row -->
                 </div>

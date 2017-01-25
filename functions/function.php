@@ -142,6 +142,7 @@ return $error_message;
 /****************************** Register user Functions **************************/
 
   function register_user($user_name,$first_name,$last_name,$email,$password) {
+
     $user_name       = escape($user_name);
     $first_name      = escape($first_name);
     $last_name       = escape($last_name);

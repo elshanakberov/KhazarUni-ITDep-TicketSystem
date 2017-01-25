@@ -1,5 +1,6 @@
 <?php
 bulk_option();
+
 ?>
 
 <form class="" action="" method="post">
@@ -16,7 +17,7 @@ bulk_option();
 
   <div class="col-xs-4">
       <input type="submit" name="submit" class="btn btn-success" value="Apply">
-      <a  class="btn btn-primary" href="add_ticket.php">Add New</a>
+      <a  class="btn btn-primary" href="tickets.php?source=add_ticket">Add New</a>
   </div>
 <table class="table table-condensed table-hover table-striped">
       <thead>
