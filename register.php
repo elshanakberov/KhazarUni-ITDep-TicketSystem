@@ -6,7 +6,11 @@
 
 			<?php validate_user();
 			 ?>
-
+			 <?php
+		       if(logged_in()){
+		         redirect("index.php");
+		       }
+		    ?>
 
 
 

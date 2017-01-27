@@ -132,7 +132,7 @@ return $error_message;
 
                 set_message('<div align = "center" class="alert alert-success" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <strong>  Success! </strong> Please Check Your Email in order to activate your profile</div>' );
+                                <strong>  Tebrikler! </strong>Siz Qeydiyatdan kechdiniz</div>' );
                 redirect("index.php");
 
               }
@@ -162,5 +162,59 @@ return $error_message;
     }
 
 
+    function validate_user_login(){
+      global $con,$db_email,$db_password;
+      $errors = [];
+            if(isset($_POST['login-submit'])){
 
+              $email = clean($_POST['email']);
+              $password = clean($_POST['password']);
+
+              if(empty($email)){
+                $errors[] = "Email adresinizi daxil etmelisiniz!";
+              }
+              if(empty($password)){
+                $errors[] = "Shifrenizi daxil etmelisiniz!";
+              }
+
+              if(!empty($errors)){
+
+                foreach($errors as $error){
+
+                  echo  validation_error($error);
+
+                }
+
+              }else{
+                $query = "SELECT * FROM users WHERE user_email = '".escape($email)."' ";
+                $stmt = mysqli_query($con,$query);
+
+                  while($row = mysqli_fetch_array($stmt)){
+                        $db_password = $row['user_password'];
+                        $db_email = $row['user_email'];
+                        $db_username = $row['user_name'];
+                        $db_user_role = $row['user_role'];
+
+
+                  }
+                  if($email === $db_email  && $password === $db_password){
+
+                    $_SESSION['user_name'] = $db_username;
+                    $_SESSION['user_role'] = $db_user_role;
+
+                    redirect("admin");
+                  }else{
+                    echo validation_error("Melumatlarinizin deqiq oldugundan emin olun");
+                  }
+              }
+         }
+    }
+
+    function logged_in(){
+      if(isset($_SESSION['user_role'])){
+        return true;
+      }else{
+        return false;
+      }
+    }
   ?>

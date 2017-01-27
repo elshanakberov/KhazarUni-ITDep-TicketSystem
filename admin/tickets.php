@@ -6,6 +6,7 @@
         <!-- Navigation -->
 
   <?php require_once("include/nav.php"); ?>
+
         <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -24,7 +25,7 @@
                             $source = $_GET['source'];
                           }else{
                             $source = "";
-                        
+
                           }
 
                           switch ($source) {

@@ -71,7 +71,8 @@
 
     function delete_category(){
       global $con;
-        if(isset($_GET['delete'])){
+        if(isset($_GET['delete']) && isset($_SESSION['user_role'])){
+          if($_SESSION['user_role'] == "Admin"){
           $delete_category_id = clean($_GET['delete']);
 
           $stmt = "DELETE FROM category WHERE category_id = ? ";
@@ -81,6 +82,7 @@
           mysqli_stmt_execute($delete_query);
 
           redirect("category.php");
+        }
       }
     }
 
@@ -195,8 +197,8 @@
 
   function delete_ticket(){
     global $con;
-      if(isset($_GET['delete'])){
-
+      if(isset($_GET['delete']) && isset($_SESSION['user_role'])){
+        if($_SESSION['user_role'] == "Admin"){
           $delete_ticket_id = clean($_GET['delete']);
           $query = "DELETE FROM request WHERE request_id = ? ";
           $stmt  = mysqli_prepare($con,$query);
@@ -205,6 +207,7 @@
           mysqli_stmt_execute($stmt);
 
           redirect("tickets.php");
+        }
     }
   }
 
@@ -358,7 +361,8 @@ function department(){
 
     function delete_department(){
       global $con;
-        if(isset($_GET['delete'])){
+        if(isset($_GET['delete']) && isset($_SESSION['user_role'])){
+          if($_SESSION['user_role'] =="Admin"){
           $delete_department_id = clean($_GET['delete']);
 
           $stmt = "DELETE FROM department WHERE department_id = ? ";
@@ -368,6 +372,7 @@ function department(){
           mysqli_stmt_execute($delete_query);
 
           redirect("department.php");
+        }
       }
     }
 
@@ -505,7 +510,8 @@ function department(){
   function delete_user(){
     global $con;
 
-    if(isset($_GET['delete'])){
+    if(isset($_GET['delete']) && isset($_SESSION['user_role'])){
+      if($_SESSION['user_role'] == "Admin"){
       $delete_user_id = $_GET['delete'];
 
       $query = "DELETE FROM users WHERE user_id = ?";
@@ -515,6 +521,7 @@ function department(){
           mysqli_stmt_execute($stmt);
           redirect("users.php");
           mysqli_stmt_close($stmt);
+      }
     }
   }
 
@@ -524,7 +531,7 @@ function department(){
     $query = "SELECT * FROM request ";
     $stmt = mysqli_query($con,$query);
 
-  $count_ticket =  mysqli_num_rows($stmt);
+    $count_ticket =  mysqli_num_rows($stmt);
 
       echo $count_ticket;
   }
@@ -609,5 +616,28 @@ function department(){
           }
 
         }
+  }
+
+  function user_online(){
+    global $con;
+    $session = session_id();
+    $time = time();
+    $time_before_leave = 60;
+    $time_out = $time - $time_before_leave;
+
+    $query = "SELECT * FROM users_online WHERE session = '{$session}' ";
+    $select_query = mysqli_query($con,$query);
+    $count = mysqli_num_rows($select_query);
+
+      if($count == NULL){
+        $query = "INSERT INTO users_online(session,time) VALUES('$session','$time') ";
+        $stmt = mysqli_query($con,$query);
+      }else{
+        $query = "UPDATE users_online SET time = '$time' WHERE session = '$session' ";
+        $stmt = mysqli_query($con,$query);
+      }
+        $query = "SELECT * FROM users_online WHERE time > '$time_out' ";
+        $stmt = mysqli_query($con,$query);
+        return $count_user_online = mysqli_num_rows($stmt);
   }
    ?>

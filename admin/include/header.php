@@ -1,6 +1,15 @@
 <?php ob_start(); ?>
 <?php require_once("functions/db.php"); ?>
 <?php require_once("functions/functions.php"); ?>
+<?php
+    if(isset($_SESSION['user_role'])){
+      if($_SESSION['user_role'] == "User"){
+        redirect("../index.php");
+      }
+    }else{
+      redirect("../index.php");
+    }
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -6,6 +6,29 @@
         <!-- Navigation -->
 
   <?php require_once("include/nav.php"); ?>
+
+  <?php
+      global $con;
+      $session = session_id();
+      $time = time();
+      $time_before_leave = 60;
+      $time_out = $time - $time_before_leave;
+
+      $query = "SELECT * FROM users_online WHERE session = '{$session}' ";
+      $select_query = mysqli_query($con,$query);
+      $count = mysqli_num_rows($select_query);
+
+        if($count == NULL){
+          $query = "INSERT INTO users_online(session,time) VALUES('$session','$time') ";
+          $stmt = mysqli_query($con,$query);
+        }else{
+          $query = "UPDATE users_online SET time = '$time' WHERE session = '$session' ";
+          $stmt = mysqli_query($con,$query);
+        }
+          $query = "SELECT * FROM users_online WHERE time > '$time_out' ";
+          $stmt = mysqli_query($con,$query);
+          $count_user_online = mysqli_num_rows($stmt);
+   ?>
         <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -14,7 +37,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                          Dashbord
+
+                          Welcome <small><?php echo $_SESSION['user_name']; ?></small>
 
                         </h1>
                     </div>

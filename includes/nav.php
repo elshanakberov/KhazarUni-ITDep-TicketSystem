@@ -12,10 +12,28 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="admin">Admin</a></li>
-            <li><a href='login.php'>Login</a></li>
-            <li><a href='request.php'>Tickets</a></li>
+
+
+            <?php
+                if(logged_in()){
+                    echo "<li><a href='index.php'>Home</a></li>";
+                  if($_SESSION['user_role'] == "Admin"){
+                    echo "<li><a href='admin'>Admin</a></li>";
+                    echo "<li><a href='request.php'>Tickets</a></li>";
+                    echo "<li><a href='logout.php'>Logout</a></li>";
+                  }else{
+                    echo "<li><a href='request.php'>Tickets</a></li>";
+                    echo "<li><a href='logout.php'>Logout</a></li>";
+                  }
+
+
+                }else{
+                  echo "<li><a href='login.php'>Login</a></li>";
+                  echo "<li><a href='request.php'>Tickets</a></li>";
+                }
+             ?>
+
+
           </ul>
 
         </div><!--/.nav-collapse -->
