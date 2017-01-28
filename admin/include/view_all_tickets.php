@@ -19,7 +19,7 @@ bulk_option();
       <input type="submit" name="submit" class="btn btn-success" value="Apply">
       <a  class="btn btn-primary" href="tickets.php?source=add_ticket">Add New</a>
   </div>
-<table class="table table-condensed table-hover table-striped">
+<table class="table table-condensed table-hover table-striped table-responsive container">
       <thead>
           <tr>
             <th>

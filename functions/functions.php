@@ -147,7 +147,7 @@ return $error_message;
       $first_name      = escape($first_name);
       $last_name       = escape($last_name);
       $email           = escape($email);
-      $password        = escape($password);
+      $password        = escape(md5($password));
       $user_role = "User";
 
       $query = "INSERT INTO users(user_name,user_firstname,user_lastname,user_email,user_role,user_password) ";
@@ -197,7 +197,7 @@ return $error_message;
 
 
                   }
-                  if($email === $db_email  && $password === $db_password){
+                  if($email === $db_email  && md5($password) === $db_password){
 
                     $_SESSION['user_name'] = $db_username;
                     $_SESSION['user_role'] = $db_user_role;

@@ -8,26 +8,7 @@
   <?php require_once("include/nav.php"); ?>
 
   <?php
-      global $con;
-      $session = session_id();
-      $time = time();
-      $time_before_leave = 60;
-      $time_out = $time - $time_before_leave;
 
-      $query = "SELECT * FROM users_online WHERE session = '{$session}' ";
-      $select_query = mysqli_query($con,$query);
-      $count = mysqli_num_rows($select_query);
-
-        if($count == NULL){
-          $query = "INSERT INTO users_online(session,time) VALUES('$session','$time') ";
-          $stmt = mysqli_query($con,$query);
-        }else{
-          $query = "UPDATE users_online SET time = '$time' WHERE session = '$session' ";
-          $stmt = mysqli_query($con,$query);
-        }
-          $query = "SELECT * FROM users_online WHERE time > '$time_out' ";
-          $stmt = mysqli_query($con,$query);
-          $count_user_online = mysqli_num_rows($stmt);
    ?>
         <div id="page-wrapper">
 
@@ -139,31 +120,8 @@
 </div>
 </div>
 <div class="row">
-        <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-      ['Year', 'Sales', 'Expenses', 'Profit'],
-      ['2014', 1000, 400, 200],
-      ['2015', 1170, 460, 250],
-      ['2016', 660, 1120, 300],
-      ['2017', 1030, 540, 350]
-      ]);
 
-      var options = {
-      chart: {
-      title: 'Company Performance',
-      subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-      }
-      };
 
-      var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-      chart.draw(data, options);
-      }
-      </script>
-      <div id="columnchart_material" style="width: 1000px; height: 410px;"></div>
 </div>
 
            <!-- /.row -->

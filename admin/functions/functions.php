@@ -462,9 +462,9 @@ function department(){
       $user_firstname = clean($_POST['user_firstname']);
       $user_lastname  = clean($_POST['user_lastname']);
       $user_email     = clean($_POST['user_email']);
-      $user_password  = clean($_POST['user_password']);
+      $user_password  = clean(md5($_POST['user_password']));
 
-      $query  = "INSERT INTO users(user_name,user_role,user_lastname,user_firstname,user_email,user_password) ";
+      $query  = "INSERT INTO users(user_name,user_role,user_firstname,user_lastname,user_email,user_password) ";
       $query .= "VALUES(?,?,?,?,?,?) ";
       $stmt = mysqli_prepare($con,$query);
 
@@ -522,6 +522,49 @@ function department(){
           redirect("users.php");
           mysqli_stmt_close($stmt);
       }
+    }
+  }
+
+  function profile(){
+    global $con,$user_name,$username,$user_firstname,$user_lastname,$user_email,$user_password;
+
+    if(isset($_SESSION['user_name'])){
+
+        $user_name = $_SESSION['user_name'];
+        $query = "SELECT user_name,user_role,user_firstname,user_lastname,user_email,user_password FROM users WHERE user_name = ? ";
+        $stmt = mysqli_prepare($con,$query);
+
+        mysqli_stmt_bind_param($stmt,'s',$user_name);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt,$username,$user_role,$user_firstname,$user_lastname,$user_email,$user_password);
+
+        while(mysqli_stmt_fetch($stmt)):
+
+        endwhile;
+
+        if(isset($_POST['update_profile'])){
+
+          $username = clean($_POST['username']);
+          $user_role = clean($_POST['user_role']);
+          $user_firtname = clean($_POST['user_firstname']);
+          $user_lastname = clean($_POST['user_lastname']);
+          $user_email = clean($_POST['user_email']);
+          $user_password = clean(md5($_POST['user_password']));
+
+          $query  = "UPDATE users SET ";
+          $query .= " user_name = ? , ";
+          $query .= " user_role = ? , ";
+          $query .= " user_firstname = ? , ";
+          $query .= " user_lastname = ? ,";
+          $query .= " user_email = ? ,";
+          $query .= " user_password = ? ";
+          $query .= "WHERE user_name = ? ";
+          $stmt = mysqli_prepare($con,$query);
+
+          mysqli_stmt_bind_param($stmt,"sssssss",$username,$user_role,$user_firtname,$user_lastname,$user_email,$user_password,$user_name);
+          mysqli_stmt_execute($stmt);
+          mysqli_stmt_close($stmt);
+        }
     }
   }
 

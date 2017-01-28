@@ -14,10 +14,10 @@
 
   <hr>
   <p class="text-center">
-    &copy; Made By Elshan Akberov. All Rights Reserved
+    Copyright &copy; Khazar University 2017
   </p >
   <p class="text-center">
-    Ticket System website of Khazar University Website. Further information  Ckeck Out
-    <a href="http://khazar.org">Khazar University</a> Website
+    Ticket System  of Khazar University's IT Department. For Further information
+    <a href="http://khazar.org">Khazar University</a>
   </p>
 <?php include("includes/footer.php") ?>
